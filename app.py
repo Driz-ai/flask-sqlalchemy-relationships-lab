@@ -30,6 +30,19 @@ def get_events():
     ]), 200
 
 
+@app.route("/events/<int:id>", methods=["GET"])
+def get_event(id):
+    event = next((event for event in events if event.id == id), None)
+
+    if not event:
+        return jsonify({"error": "Event not found"}), 404
+
+    return jsonify({
+        "id": event.id,
+        "title": event.title
+    }), 200
+
+
 @app.route("/events", methods=["POST"])
 def create_event():
     data = request.get_json()
@@ -50,6 +63,19 @@ def create_event():
         "id": event.id,
         "title": event.title
     }), 201
+
+@app.route("/events/<int:id>", methods=["DELETE"])
+def delete_event(id):
+    global events
+
+    event = next((event for event in events if event.id == id), None)
+
+    if not event:
+        return jsonify({"error": "Event not found"}), 404
+
+    events.remove(event)
+
+    return "", 204
 
 
 if __name__ == "__main__":
