@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
 from flask import Flask, jsonify
-from flask_migrate import Migrate
+try:
+    from flask_migrate import Migrate
+except ModuleNotFoundError:
+    Migrate = None
 
 
 from server.models import db, Event, Session, Speaker, Bio
@@ -14,7 +17,8 @@ app.json.compact = False
 
 
 db.init_app(app)
-migrate = Migrate(app, db)
+if Migrate:
+    migrate = Migrate(app, db)
 
 
 @app.route("/")
