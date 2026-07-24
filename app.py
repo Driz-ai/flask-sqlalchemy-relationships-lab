@@ -42,7 +42,6 @@ def get_event(id):
         "title": event.title
     }), 200
 
-
 @app.route("/events", methods=["POST"])
 def create_event():
     data = request.get_json()
@@ -64,7 +63,8 @@ def create_event():
         "title": event.title
     }), 201
 
-@app.route("/events/<int:id>", methods=["PUT"])
+
+@app.route("/events/<int:id>", methods=["PUT", "PATCH"])
 def update_event(id):
     event = next((event for event in events if event.id == id), None)
 
