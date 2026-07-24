@@ -1,5 +1,8 @@
 import datetime
-from models import *
+from server.models import *
+
+from server.app import app
+from server.models import db, Event, Session, Speaker, Bio
 
 def test_create_event(test_client):
     event = Event(name="Tech Conference", location="New York")
@@ -14,7 +17,6 @@ def test_create_session(test_client):
     event = Event(name="Startup Pitch", location="San Francisco")
     db.session.add(event)
     db.session.commit()
-
     session = Session(title="AI in 2024", start_time=datetime.datetime(2024, 6, 1, 10, 0), event=event)
     db.session.add(session)
     db.session.commit()

@@ -1,6 +1,6 @@
 import pytest
-from server.app import app, db
-from server.models import Event, Session, Speaker, Bio
+from server.app import app
+from server.models import db , Event, Session, Speaker, Bio
 import datetime
 
 @pytest.fixture(scope="function")

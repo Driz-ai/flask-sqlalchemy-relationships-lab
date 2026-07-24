@@ -1,5 +1,7 @@
-from app import app
-from models import *
+# from app import app
+# from models import *
+from server.app import app
+from server.models import db, Event, Session, Speaker, Bio
 
 def test_get_session_speakers_success(test_client):
     session = db.session.query(Session).first()
