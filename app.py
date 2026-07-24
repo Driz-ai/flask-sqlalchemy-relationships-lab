@@ -64,6 +64,23 @@ def create_event():
         "title": event.title
     }), 201
 
+@app.route("/events/<int:id>", methods=["PUT"])
+def update_event(id):
+    event = next((event for event in events if event.id == id), None)
+
+    if not event:
+        return jsonify({"error": "Event not found"}), 404
+
+    data = request.get_json()
+
+    if "title" in data:
+        event.title = data["title"]
+
+    return jsonify({
+        "id": event.id,
+        "title": event.title
+    }), 200
+
 @app.route("/events/<int:id>", methods=["DELETE"])
 def delete_event(id):
     global events
